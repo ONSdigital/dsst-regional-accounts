@@ -1,0 +1,15 @@
+name: env-name
+dependencies:
+  # Python 3.6.8 required for CDSW.
+  - flake8
+  - python=3.6.8
+  - pytest
+  # Optional pytest plugins.
+  # - pytest-lazy-fixture
+  # - pytest-mock
+  # - pytest-cov
+
+  - pip:
+    - bump2version
+    - flake8-docstrings
+    - pre-commit

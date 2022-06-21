@@ -1,0 +1,21 @@
+[flake8]
+#ignore = D203
+exclude =
+    # No need to traverse our git directory
+    .git,
+    # There's no value in checking cache directories
+    __pycache__,
+    setup.py
+max-complexity = 10
+per-file-ignores =
+    # F401 is imported but unused, sometimes we just want to make things
+    # available in init files.
+    *__init__.py: F401,D104
+    # E201, E202 is whitespace before/after (), which is sometimes broken when aligning data in test
+    # scripts.
+    # E203 is whitespace before ',', also sometimes broken when aligning test scripts.
+    # F403 and F405 are importing using * which is sometimes convenient in test scripts.
+    # Ignoring F401 and F811 to allow import of fixtures.
+    # E501 is line too long.
+    tests/*: E501, E201, E202, E203, F403, F405, F401, F811
+
