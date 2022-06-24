@@ -1,12 +1,24 @@
 """ Run DSST Regional Accounts project. """
 import pandas as pd 
+import yaml 
+
+def load_config(yaml_path: str):
+
+    """
+
+    """
+
+    with open(yaml_path, 'r') as f:
+        return yaml.safe_load(f)
+
+config = load_config("config\config.yaml")
 
 # Define empty rows at the top of the spreadsheet to exclude
 emptyrows = list(range(0,6))
 
 # Import data 
-input_file_P1 = pd.read_excel(r"C:\Users\murrec\DSST\Input P1 AND P2.xlsx", sheet_name="P1", skiprows=emptyrows)
-input_file_P2 = pd.read_excel(r"C:\Users\murrec\DSST\Input P1 AND P2.xlsx", sheet_name="P2")
+input_file_P1 = pd.read_excel(config["data"]["input_path"], sheet_name="P1", skiprows=emptyrows)
+input_file_P2 = pd.read_excel(config["data"]["input_path"], sheet_name="P2")
 
 def pre_processing(df):
     df.rename(columns={"Unnamed: 0": "tax_code",
