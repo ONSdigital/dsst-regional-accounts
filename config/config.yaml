@@ -1,3 +1,14 @@
-data:
+input_data:
   input_path: C:\Users\murrec\DSST\Input P1 AND P2.xlsx
+  # Define empty rows at the top of the spreadsheet to exclude
+  start_empty_rows: 0
+  end_empty_rows: 6 
+
+timeseries:
+  start_year: 1997
+  end_year: 2020
+
+output_file:
   output_path: C:\Users\murrec\DSST\Python Output P1_P2_RA_BB21.xlsx
+  sheet_1_name: P1_RA_BB21
+  sheet_2_name: P2_RA_BB21
