@@ -13,23 +13,31 @@ def load_config(yaml_path: str):
 
 config = load_config("config\config.yaml")
 
-# Define empty rows at the top of the spreadsheet to exclude
-emptyrows = list(range(config["input_data"]["start_empty_rows"],config["data"]["end_empty_rows"]))
+def run(data, file)-> pd.DataFrame:
+    """
 
-# Import data 
-input_file_P1 = pd.read_excel(config["input_data"]["input_path"], sheet_name="P1", skiprows=emptyrows)
-input_file_P2 = pd.read_excel(config["input_data"]["input_path"], sheet_name="P2")
+    """
+
+    df = pre_processing(data)
+
+    start_year = config["timeseries"]["start_year"]
+    end_year = config["timeseries"]["end_year"] + 1
+
+    years = create_years(start_year, end_year)
+
+    df = P_calculation(df, years, file)
+ 
+    return df
 
 def pre_processing(df):
     df.rename(columns={"Unnamed: 0": "tax_code",
                    "Unnamed: 1": "industry_code",
                    "Unnamed: 2": "SIC_code"}, inplace=True)
     df.drop(df[df["SIC_code"]  == "TOTAL"].index, inplace=True)
+    df.drop(df[(df["tax_code"]  == "P.13") & (df["industry_code"]  == "S.13")].index, inplace=True)
 
     return df 
 
-input_file_P1 = pre_processing(input_file_P1)
-input_file_P2 = pre_processing(input_file_P2)
 
 def create_years(start_year, end_year):
     # Create a list of years 
@@ -43,12 +51,8 @@ def create_years(start_year, end_year):
 
     return years_dict
 
-start_year = config["timeseries"]["start_year"]
-end_year = config["timeseries"]["end_year"]
 
-years = create_years(start_year, end_year)
-
-def P_calculation(df, file):
+def P_calculation(df, years, file):
     df = df.groupby(by = "SIC_code").agg(years)
 
     # Add back in a total column
@@ -61,9 +65,14 @@ def P_calculation(df, file):
 
     return df
     
-output_file_P1 = P_calculation(input_file_P1, "P.1")
-output_file_P2 = P_calculation(input_file_P2, "P.2")
+if __name__=='__main__':
+
+    data_P1 = pd.read_excel(config["input_data"]["input_path"], sheet_name="P1", skiprows=config["input_data"]["P1_delete_top_rows"])
+    print(data_P1)
+    data_P2 = pd.read_excel(config["input_data"]["input_path"], sheet_name="P2", skiprows=config["input_data"]["P2_delete_top_rows"])
+    P1 = run(data_P1, "P.1")
+    P2 = run(data_P2, "P.2")
 
 with pd.ExcelWriter(config["output_file"]["output_path"],) as writer:
-    output_file_P1.to_excel(writer, sheet_name=config["output_file"]["sheet_1_name"], index=False)
-    output_file_P2.to_excel(writer, sheet_name=config["output_file"]["sheet_2_name"], index=False)
+        P1.to_excel(writer, sheet_name=config["output_file"]["sheet_1_name"], index=False)
+        P2.to_excel(writer, sheet_name=config["output_file"]["sheet_2_name"], index=False)

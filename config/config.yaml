@@ -1,8 +1,7 @@
 input_data:
   input_path: C:\Users\murrec\DSST\Input P1 AND P2.xlsx
-  # Define empty rows at the top of the spreadsheet to exclude
-  start_empty_rows: 0
-  end_empty_rows: 6 
+  P1_delete_top_rows: 6
+  P2_delete_top_rows: 0
 
 timeseries:
   start_year: 1997
