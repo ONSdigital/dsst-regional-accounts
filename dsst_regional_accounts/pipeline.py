@@ -1,15 +1,7 @@
 """ Run DSST Regional Accounts project. """
 import pandas as pd 
 import yaml 
-
-def load_config(yaml_path: str):
-
-    """
-
-    """
-
-    with open(yaml_path, 'r') as f:
-        return yaml.safe_load(f)
+from io import *
 
 def run(config_path: str)-> pd.DataFrame:
     """
@@ -23,7 +15,7 @@ def run(config_path: str)-> pd.DataFrame:
 
     """ 
 
-    config = load_config(config_path)
+    config = io.load_config(config_path)
 
     df_1 = load_data(
         config["input_data"]["input_path"], 
