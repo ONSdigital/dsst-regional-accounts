@@ -1,7 +1,7 @@
 """ Run DSST Regional Accounts project. """
 import pandas as pd 
 import yaml 
-from io import *
+from dsst_regional_accounts.io import *
 
 def run(config_path: str)-> pd.DataFrame:
     """
@@ -49,6 +49,17 @@ def run(config_path: str)-> pd.DataFrame:
 
 def load_data(input_path: str, sheet_name: str, 
                 delete_rows: int) -> pd.DataFrame:
+    """
+    Reads in the input excel file into a pd.DataFrame
+
+    Parameters:
+        input_path
+        sheet_name
+        delete_rows
+
+    Returns:
+        pd.DataFrame
+    """
     
     return pd.read_excel(input_path, sheet_name=sheet_name, 
                             skiprows=delete_rows)
