@@ -1,0 +1,13 @@
+input_data:
+  input_path: C:\Users\murrec\DSST\Input P1 AND P2.xlsx
+  P1_delete_top_rows: 6
+  P2_delete_top_rows: 0
+
+timeseries:
+  start_year: 1997
+  end_year: 2020
+
+output_file:
+  output_path: C:\Users\murrec\DSST\Python Output P1_P2_RA_BB21.xlsx
+  sheet_1_name: P1_RA_BB21
+  sheet_2_name: P2_RA_BB21
