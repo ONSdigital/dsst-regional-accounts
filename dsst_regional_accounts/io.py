@@ -1,4 +1,5 @@
 import pandas as pd 
+import yaml
 
 def load_config(yaml_path: str):
 
