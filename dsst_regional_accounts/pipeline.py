@@ -1,15 +1,11 @@
 """ Run DSST Regional Accounts project. """
 import pandas as pd 
-import yaml
-from dsst_regional_accounts.io import load_config
-from dsst_regional_accounts.io import load_data
-from dsst_regional_accounts.io import export_data
 
-def load_config(yaml_path: str):
-
-    with open(yaml_path, 'r') as f:
-        return yaml.safe_load(f)
-
+from dsst_regional_accounts.io import (
+    load_config, 
+    load_data, 
+    export_data
+)
 
 def run(config_path: str)-> pd.DataFrame:
     """
