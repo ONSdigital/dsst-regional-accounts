@@ -15,7 +15,7 @@ set virtual-env-name=epr-369&::name your virutual environment e.g. my_proj_env
 
 :: Choose the config file - should exist in the config folder witin the repo
 :: Note that if none is set default_config.ini will be used
-set config_file=default_config.ini
+set config_file=config.yaml
 
 :: Location of the pip config file - this shouldn't need to be changed
 set pip-config-location=%appdata%\pip
@@ -134,7 +134,7 @@ IF %in_git_repo%==0 (
     cd %repo-name% || ECHO ERROR - terminating script && pause && EXIT /b
 )
 pip install -r requirements.txt
-python pipeline.py --config-file=%config_file%
+python dsst_regional_accounts/pipeline.py --config-file=%config_file%
 
 CALL conda deactivate
 
