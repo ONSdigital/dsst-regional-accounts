@@ -1,7 +1,15 @@
 """ Run DSST Regional Accounts project. """
 import pandas as pd 
-import yaml 
-from dsst_regional_accounts.io import *
+import yaml
+from dsst_regional_accounts.io import load_config
+from dsst_regional_accounts.io import load_data
+from dsst_regional_accounts.io import export_data
+
+def load_config(yaml_path: str):
+
+    with open(yaml_path, 'r') as f:
+        return yaml.safe_load(f)
+
 
 def run(config_path: str)-> pd.DataFrame:
     """
@@ -15,7 +23,7 @@ def run(config_path: str)-> pd.DataFrame:
 
     """ 
 
-    config = io.load_config(config_path)
+    config = load_config(config_path)
 
     df_1 = load_data(
         config["input_data"]["input_path"], 
@@ -44,38 +52,44 @@ def run(config_path: str)-> pd.DataFrame:
         config["output_file"]["sheet_1_name"], 
         config["output_file"]["sheet_2_name"]
     )
- 
+
     return None
 
-def load_data(input_path: str, sheet_name: str, 
-                delete_rows: int) -> pd.DataFrame:
+def pre_processing(df: pd.DataFrame) -> pd.DataFrame:
+
     """
-    Reads in the input excel file into a pd.DataFrame
+    Processes the data - renames columns, 
+    drops total and aggregate rows (avoid double counting)
 
     Parameters:
-        input_path
-        sheet_name
-        delete_rows
+        df (pd.DataFrame): input df.
 
     Returns:
-        pd.DataFrame
+        df (pd.DataFrame): cleaned df. 
     """
-    
-    return pd.read_excel(input_path, sheet_name=sheet_name, 
-                            skiprows=delete_rows)
-
-def pre_processing(df: pd.DataFrame) -> pd.DataFrame:
     df.rename(columns={"Unnamed: 0": "tax_code",
-                    "Unnamed: 1": "sector_code",
-                    "Unnamed: 2": "SIC_code"}, inplace=True)
+        "Unnamed: 1": "sector_code",
+        "Unnamed: 2": "SIC_code"}, 
+        inplace=True
+    )
     df.drop(df[df["SIC_code"]  == "TOTAL"].index, inplace=True)
-    invalid = (df["tax_code"]  == "P.13") & (df["industry_code"]  == "S.13")
+    invalid = (df["tax_code"]  == "P.13") & (df["sector_code"]  == "S.13")
     df.drop(df[invalid].index, inplace=True)
 
     return df
 
 
 def create_years(start_year: int, end_year: int) -> dict:
+    """
+    Creates a dictionary (key: year, value: "sum") - sum each year
+
+    Parameters:
+        start_year (int): first year of the time series.
+        end_year (int): last year to be included.
+
+    Returns:
+        years_dict (dict): year with sum operator for aggreagtion. 
+    """
     # Create a list of years inclusive of end year. 
     years_list = list(range(start_year, end_year + 1))
 
@@ -89,26 +103,30 @@ def create_years(start_year: int, end_year: int) -> dict:
 
 
 def P_calculation(df: pd.DataFrame, 
-                    years: dict, file: str) -> pd.DataFrame:
+                    years: dict, tax_code: str) -> pd.DataFrame:
+    """
+    Aggregates (sum) data based on SIC code. 
+
+    Parameters:
+        df (pd.DataFrame): first year of the time series.
+        years (dict): (key: year, value: "sum")
+        tax_code (str): either P.1 or P.2
+
+    Returns:
+        df(pd.DataFrame): output dataframe.
+    """
     df = df.groupby(by = "SIC_code").agg(years)
 
     # Add back in a total row
     df = df.append(df.sum().rename('Total'))
 
-    # Ensure industry code is a column and not the index 
+    # Ensure sector code is a column and not the index 
     df.reset_index(inplace=True)
 
-    df.insert(0, "Transaction", file)
+    # Insert tax code column 
+    df.insert(0, "Transaction", tax_code)
 
     return df
-
-def export_data(P1: pd.DataFrame, P2: pd.DataFrame, output_path: str,
-                sheet_name_1: str, sheet_name_2: str):
-    with pd.ExcelWriter(output_path) as writer:
-        P1.to_excel(writer, sheet_name = sheet_name_1, index=False)
-        P2.to_excel(writer, sheet_name = sheet_name_2, index=False)
-    
-    return None
     
 if __name__=='__main__':
 
