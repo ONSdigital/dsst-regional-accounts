@@ -1,7 +1,7 @@
 """ Run DSST Regional Accounts project. """
 import pandas as pd 
 
-from dsst_regional_accounts.io import (
+from data_import import (
     load_config, 
     load_data, 
     export_data
