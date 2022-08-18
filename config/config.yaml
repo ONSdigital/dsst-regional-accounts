@@ -8,6 +8,6 @@ timeseries:
   end_year: 2020
 
 output_file:
-  output_path: output_data\Python Output P1_P2_RA_BB22.xlsx
+  output_path: output_data\Python Output P1_P2_RA_BB21.xlsx
   sheet_1_name: P1_RA_BB21
   sheet_2_name: P2_RA_BB21
