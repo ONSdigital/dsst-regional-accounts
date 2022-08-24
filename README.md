@@ -1,7 +1,7 @@
 # DSST - Regional Accounts Project 
 Project completed by Chloe Murrell (August 2022) using Python 3.8.3.
 
-This project aimed to build a Python script to automate manual processing of data within excel which was carried out by the regional account team. 
+This project aimed to build a Python script to automate manual processing of data within excel which was carried out by the regional account team (P1 and P2 spreadsheets). 
 
 # Developer guide
 ### Relevant Spreadsheets
