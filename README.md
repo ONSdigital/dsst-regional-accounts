@@ -63,6 +63,7 @@ Within your C drive, create a folder where you would like to keep the repository
 
 ### Edit batch script 
 Before the batch script can be run there are a few file paths which need changing. In order to edit the batch script click on the file, then right click and edit (opening in Notebook is the easiest format). 
+
 Step 1: Change the local-repo-location
 This needs the be the file path to the folder you have just created with the batch script in it. To find the file path go to the file explorer and into the folder. Left click in the file path box. Copy and paste this into the batch script for the ‘local-repo-location’ (see screenshot below). 
 
