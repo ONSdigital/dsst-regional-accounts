@@ -132,7 +132,7 @@ When repeating this process each year the new input data from public sector can 
 
 **Environment issues**  
 Possible issue with conda setup file
- -Delete the following file:  
+ -Backup the following file (e.g. change the file name to '.condarc_old'):  
    C:\Users\<username>\.condarc  
    
 **Error at pandas pip install stage**  
@@ -145,5 +145,5 @@ Possible issue with pip.ini artefactory username and password.
 a.	Win key + R
 2.	Open ‘Pip’ folder
 3.	WARNING: This can mess with previous manually setup entries, check the file first  
-a.	Delete pip.ini
+a.	Backup the existing file pip.ini  (e.g. change the file name to 'pip_old.ini')
 
