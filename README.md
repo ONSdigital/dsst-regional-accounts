@@ -130,6 +130,10 @@ When repeating this process each year the new input data from public sector can 
 
 ### Troubleshooting  
 
+**Further guidance**  
+Further guidance and troubleshooting steps can be found at the following repo:  
+https://github.com/ONSdigital/easy_pipeline_run#run-run_pipelinebat
+
 **Environment issues**  
 Possible issue with conda setup file
  -Backup the following file (e.g. change the file name to '.condarc_old'):  
