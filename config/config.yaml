@@ -1,3 +1,4 @@
+# P1 and P2 configuration
 input_data:
   input_path: input_data\Input P1 AND P2.xlsx
   P1_delete_top_rows: 6

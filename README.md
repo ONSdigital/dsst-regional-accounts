@@ -23,12 +23,18 @@ A batch script (run_pipeline.bat) has been set up to make it easier for the busi
 The Python script takes the input file performs the necessary calculations (aggregates (sum) the data based on SIC code) and then produces the output file. 
 Within the repository there is a folder called [dsst_regional_accounts](https://github.com/ONSdigital/dsst-regional-accounts/tree/main/dsst_regional_accounts) which contains the two main Python file scripts. 
 
-**pipline.py** – This file contains the run function which runs all necessary functions to produce the output file. This script although contains the processing functions to manipulate and calculate the data.  
+**pipline.py** – This file contains the run function which runs all necessary functions to produce the output file. This script also contains the loading of the config file. 
 
 **data_import.py** – This script contains the functions to load the config file, read in the input data (excel file) and export the output data back to an excel file. 
 
-There is also a separate config folder which contains a config yaml. This has been included to make it easier for the business area to edit necessary variables.  
+**config**
+There is also a separate config folder which contains a config yaml. This has been included to make it easier for the business area to edit necessary variables. 
 
+**p1_p2.py**
+This script contains the processing functions to manipulate and calculate the data required for the P1 and P2 spreadsheets. 
+
+**helper.py**
+This script contains helper functions that could be used across multiple sheet outputs. 
 
 # User guide
 This section contains the instructions for producing the final output spreadsheet for P1 and P2 regional accounts using the pipeline created in Python.  

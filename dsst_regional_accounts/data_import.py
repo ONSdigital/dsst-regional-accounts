@@ -23,7 +23,7 @@ def load_data(input_path: str, sheet_name: str, delete_rows: int) -> pd.DataFram
                             skiprows=delete_rows)
 
 
-def export_data(P1: pd.DataFrame, P2: pd.DataFrame, output_path: str,
+def export_data_p1_p2(P1: pd.DataFrame, P2: pd.DataFrame, output_path: str,
                 sheet_name_1: str, sheet_name_2: str):
     """
     Exports df_1 and df_2 to excel file.
