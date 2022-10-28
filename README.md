@@ -43,7 +43,9 @@ This is the link for [ONS Artifactory](http://art-p-01/artifactory/webapp/#/logi
 1.	Click on your username in the top right-hand corner. 
 2.	Type in your windows password to the ‘Current Password’ box. 
 3.	Click Unlock to view your encrypted password. 
-4.	This can be copied and pasted into the batch script when required. 
+4.	This can be copied and pasted into the batch script when required.  
+ a.	Windows username  
+ b. Artefactory excrypted password
 
 ### GitHub
 The repository for this project is stored on GitHub. Therefore, if you don’t already have an account you will need to set one up [GitHub](https://github.com/).
@@ -125,3 +127,27 @@ You should now be able to double click on the batch script and once it has run t
 ![image](https://user-images.githubusercontent.com/97117990/186368706-b1c7932e-c96c-423c-bd91-7ce2933f4d8f.png)
 
 When repeating this process each year the new input data from public sector can be saved in the input_folder, as long as the variables are changed in the config file this process can be repeated multiple times and each output file will be save in the output folder. 
+
+### Troubleshooting  
+
+**Further guidance**  
+Further guidance and troubleshooting steps can be found at the following repo:  
+https://github.com/ONSdigital/easy_pipeline_run#run-run_pipelinebat
+
+**Environment issues**  
+Possible issue with conda setup file
+ -Backup the following file (e.g. change the file name to '.condarc_old'):  
+   C:\Users\<username>\.condarc  
+   
+**Error at pandas pip install stage**  
+Error codes:  
+•	401 Credentials error  
+•	Cannot import pd  
+
+Possible issue with pip.ini artefactory username and password.
+1.	Open the “Run” box in windows  
+a.	Win key + R
+2.	Open ‘Pip’ folder
+3.	WARNING: This can mess with previous manually setup entries, check the file first  
+a.	Backup the existing file pip.ini  (e.g. change the file name to 'pip_old.ini')
+
