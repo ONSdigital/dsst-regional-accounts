@@ -1,14 +1,14 @@
 # P1 and P2 configuration
-input_data:
-  input_path: input_data\Input P1 AND P2.xlsx
+p1_p2_input_file:
+  path: input_data\Input P1 AND P2.xlsx
   P1_delete_top_rows: 6
   P2_delete_top_rows: 0
 
-timeseries:
+p1_p2_timeseries:
   start_year: 1997
   end_year: 2020
 
-output_file:
-  output_path: output_data\Python Output P1_P2_RA_BB21.xlsx
+p1_p2_output_file:
+  path: output_data\Python Output P1_P2_RA_BB21.xlsx
   sheet_1_name: P1_RA_BB21
   sheet_2_name: P2_RA_BB21
